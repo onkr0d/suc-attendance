@@ -3,22 +3,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="h-14 bg-gradient-to-r from-violet-500 to-fuchsia-500 min-h-screen">
+        <h1 className={"text-white text-5xl font-extralight p-20 text-center"}>Welcome!</h1>
+        <p className={"text-white text-3xl font-extralight text-center px-5"}>Let's see if you've been here before...</p>
+      </div>
   );
 }
 
