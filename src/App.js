@@ -5,10 +5,11 @@ import Greeting from "./components/Greeting"
 
 function App() {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['firstName', 'lastName', 'suffolkID']);
+    const [cookies, setCookie] = useCookies(['name', 'suffolkID']);
+    let name = '';
+    let suffolkID = '';
 
-    console.log("first name " + cookies.firstName);
-    console.log("last name " + cookies.lastName);
+    console.log("name " + cookies.name);
     console.log("suffolk id " + cookies.suffolkID);
 
     useEffect(() => {
@@ -17,13 +18,17 @@ function App() {
 
     function submit() {
         console.log("Saving user data to cookies")
+        // do we need more logic for names? can names have numbers? idk
+        // at the very least our back-end needs to normalize names somehow
+        setCookie("name", name);
+        setCookie("suffolkID", suffolkID);
         window.close();
     }
 
     return (<div
         className="bg-gradient-to-r from-violet-500 to-fuchsia-500 min-h-screen flex flex-col justify-center items-center">
         <h1 className={"text-white text-5xl py-3 font-extralight p-20 text-center"}>welcome!</h1>
-        <Greeting userData={[cookies.firstName, cookies.lastName, cookies.suffolkID]}/>
+        <Greeting userData={[cookies.name, cookies.suffolkID]}/>
         <br/>
         <br/>
 
@@ -39,7 +44,8 @@ function App() {
                     </label>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="studentName" type="text" placeholder="first and last name"/>
+                        id="studentName" type="text" placeholder="first and last name"
+                        onChange={event => name = event.target.value}/>
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="suffolkID">
@@ -49,9 +55,11 @@ function App() {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                         id="suffolkID" type={"tel"} maxLength={7} placeholder="1234567"
                         onKeyDown={(event) => {
-                            let x = event.which || event.keyword;
+                            // don't work, but probably doesn't matter
+                            let x = event.which || event.key;
                             return x >= 48 && x <= 57;
                         }}
+                        onChange={event => suffolkID = event.target.value}
                     >
                     </input>
                 </div>
