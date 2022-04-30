@@ -20,9 +20,18 @@ function App() {
         console.log("Saving user data to cookies")
         // do we need more logic for names? can names have numbers? idk
         // at the very least our back-end needs to normalize names somehow
-        setCookie("name", name);
-        setCookie("suffolkID", suffolkID);
-        window.close();
+
+        // putting a whitespace as these values will make our app think
+        // there is valid user data. definitely need logic against that.
+        if (name !== '') {
+            setCookie("name", name);
+        }
+        if (suffolkID !== '') {
+            setCookie("suffolkID", suffolkID);
+        }
+
+        // lol
+        // window.close();
     }
 
     return (<div
@@ -31,13 +40,11 @@ function App() {
         <Greeting userData={[cookies.name, cookies.suffolkID]}/>
         <br/>
         <br/>
-
-
         <br/>
         <br/>
 
         <div className="w-full max-w-xs">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={submit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="studentName">
                         name
@@ -65,8 +72,8 @@ function App() {
                 </div>
                 <div className="flex items-center justify-center">
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button" onSubmit={submit}>
+                        className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="button" onClick={submit}>
                         Sign In
                     </button>
                 </div>

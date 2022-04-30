@@ -22,7 +22,7 @@ class Greeting extends React.Component {
 
     render() {
         return (
-                <div>
+            <div>
                 <br/>
                 <p className={"text-white text-3xl font-extralight text-center px-5"}>{this.state.greeting}</p>
             </div>
