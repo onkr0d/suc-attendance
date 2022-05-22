@@ -5,7 +5,8 @@ class Body extends React.Component {
     constructor(props) {
         super(props);
         this.state = {whatever: props.suffolkID}
-
+        this.nameRef = React.createRef();
+        this.idRef = React.createRef();
     }
 
     render() {
@@ -18,7 +19,9 @@ class Body extends React.Component {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="studentName" type="text" placeholder="first and last name"
-                        onChange={event => this.state.name = event.target.value}/>
+                        onChange={event => {
+                            this.nameRef.current = event.target.value;
+                        }}/>
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="suffolkID">
@@ -32,7 +35,7 @@ class Body extends React.Component {
                             let x = event.which || event.key;
                             return x >= 48 && x <= 57;
                         }}
-                        onChange={event => this.state.suffolkID = event.target.value}
+                        onChange={event => this.idRef.current = event.target.value}
                     >
                     </input>
                 </div>

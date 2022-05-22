@@ -24,10 +24,10 @@ function App() {
 
         // putting a whitespace as these values will make our app think
         // there is valid user data. definitely need logic against that.
-        if (name !== '') {
+        if (name.trim() !== '') {
             setCookie("name", name);
         }
-        if (suffolkID !== '') {
+        if (suffolkID.trim() !== '') {
             setCookie("suffolkID", suffolkID);
         }
 
