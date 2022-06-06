@@ -25,7 +25,7 @@ class Body extends React.Component {
                         name
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
                         id="studentName" type="text" placeholder="first and last name"
                         onChange={event => this.name = event.target.value}/>
                 </div>
@@ -35,7 +35,7 @@ class Body extends React.Component {
                         suffolk id
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
                         id="suffolkID" type={"tel"} maxLength={7} placeholder="1234567"
                         onKeyDown={(event) => {
                             // don't work, but probably doesn't matter
