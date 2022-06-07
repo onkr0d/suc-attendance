@@ -11,7 +11,7 @@ class Greeting extends React.Component {
             props.updateMissingData("allDataMissing", true);
         } else if (props.userData.includes(undefined)) {
             // some data missing - but how lol
-            this.state.greeting = "it seems we're missing some info about you, let's fill that out";
+            this.state.greeting = "it seems we're missing some info about you, let's fix that";
             props.updateMissingData("someDataMissing", true);
             props.updateMissingData("nameMissing", props.userData[0] === undefined);
             props.updateMissingData("suffolkIDMissing", props.userData[1] === undefined)
