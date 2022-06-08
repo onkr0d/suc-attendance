@@ -3,23 +3,29 @@ import React from "react";
 class Greeting extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {userData: props.userData, updateMissingData: props.updateMissingData};
+        this.state = {userInfo: props.userInfo};
 
-        if (props.userData.every(element => element === undefined)) {
-            // no data - new user
+        if (props.userInfo.newUser) {
             this.state.greeting = "it looks like you're a new user, let's get you signed up.";
-            props.updateMissingData("allDataMissing", true);
-        } else if (props.userData.includes(undefined)) {
-            // some data missing - but how lol
-            this.state.greeting = "it seems we're missing some info about you, let's fix that";
-            props.updateMissingData("someDataMissing", true);
-            props.updateMissingData("nameMissing", props.userData[0] === undefined);
-            props.updateMissingData("suffolkIDMissing", props.userData[1] === undefined)
+        } else if (props.userInfo.missingData) {
+            // shouldn't be possible unless cookie is manually removed
+            this.state.greeting = "it seems we're missing some info about you, let's fix that.";
         } else {
             // all data is present, it's a returning user
             this.state.greeting = "nice to see you again! please choose a club to sign in to:";
-            // we're not modular with clubs yet lol
-            props.updateMissingData("nothingMissing", true);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.greeting === this.state.greeting) {
+            return;
+        }
+        if (this.props.userInfo.newUser) {
+            this.setState({greeting: "it looks like you're a new user, let's get you signed up."})
+        } else if (this.props.userInfo.missingData) {
+            this.setState({greeting: "it seems we're missing some info about you, let's fix that."})
+        } else {
+            this.setState({greeting: "nice to see you again! please choose a club to sign in to:"})
         }
     }
 

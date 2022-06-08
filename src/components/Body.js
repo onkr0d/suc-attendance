@@ -4,16 +4,17 @@ class Body extends React.Component {
 
     constructor(props) {
         super(props);
-        this.name = null;
-        this.suffolkID = null;
-        this.state = {findData: props.findData};
+        this.enteredName = null;
+        this.enteredSuffolkID = null;
+        this.state = {userInfo: props.userInfo};
     }
 
     render() {
-        let buttonText = "sign in"
+        let buttonText = "sign up";
         let nameField = null, IDField = null;
-        if (!this.props.findData("nothingMissing")) {
-            if (this.props.findData("nameMissing")) {
+        let newUser = this.props.userInfo.newUser;
+        if (!this.props.userInfo.oldUser || newUser) {
+            if (this.props.userInfo.name === undefined || newUser) {
                 nameField = <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-300"
                            htmlFor="studentName">
@@ -22,11 +23,11 @@ class Body extends React.Component {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
                         id="studentName" type="text" placeholder="first and last name"
-                        onChange={event => this.name = event.target.value}/>
+                        onChange={event => this.enteredName = event.target.value}/>
                 </div>;
             }
 
-            if (this.props.findData("suffolkIDMissing")) {
+            if (this.props.userInfo.id === undefined || newUser) {
                 IDField = <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-300"
                            htmlFor="suffolkID">
@@ -35,17 +36,14 @@ class Body extends React.Component {
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
                         id="suffolkID" type={"tel"} maxLength={7} placeholder="1234567"
-                        onKeyDown={(event) => {
-                            // don't work, but probably doesn't matter
-                            let x = event.which || event.key;
-                            return x >= 48 && x <= 57;
-                        }}
-                        onChange={event => this.suffolkID = event.target.value}
+                        onChange={event => this.enteredSuffolkID = event.target.value}
                     />
                 </div>
             }
 
-            buttonText = "update my info"
+            if (!newUser) {
+                buttonText = "update my info"
+            }
         }
 
         return <div className="w-full max-w-xs">
@@ -59,8 +57,8 @@ class Body extends React.Component {
                 <div className="flex items-center justify-center">
                     <button
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
-                        type="button" onClick={() => {
-                        this.props.save(this.name, this.suffolkID)
+                        type="submit" onClick={() => {
+                        this.props.save(this.enteredName, this.enteredSuffolkID)
                     }}>
                         {buttonText}
                     </button>
