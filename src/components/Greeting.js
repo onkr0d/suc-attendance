@@ -17,7 +17,7 @@ class Greeting extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevState.greeting === this.state.greeting) {
+        if (prevState.greeting === this.state.greeting && prevProps.userInfo === this.props.userInfo) {
             return;
         }
         if (this.props.userInfo.newUser) {

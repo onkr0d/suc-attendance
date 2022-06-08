@@ -35,7 +35,7 @@ class Body extends React.Component {
                     </label>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:border-gray-500"
-                        id="suffolkID" type={"tel"} maxLength={7} placeholder="1234567"
+                        id="suffolkID" type="tel" maxLength={7} placeholder="1234567"
                         onChange={event => this.enteredSuffolkID = event.target.value}
                     />
                 </div>
