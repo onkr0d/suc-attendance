@@ -19,6 +19,8 @@ app.get("/api/clubs", cors(), (req, res, next) => {
     })
 })
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log('server listening on', port);
 })
+
+module.exports = server
