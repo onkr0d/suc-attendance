@@ -1,7 +1,6 @@
 import React from "react"
 import SingleClub from "./SingleClub";
 import ky from 'ky';
-import {image} from "tailwindcss/lib/util/dataTypes";
 
 class Clubs extends React.Component {
 
