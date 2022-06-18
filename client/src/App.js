@@ -2,7 +2,7 @@ import './App.css';
 import {useCookies} from "react-cookie";
 import React from "react";
 import Greeting from "./components/Greeting"
-import Body from "./components/Body"
+import SignUp from "./components/SignUp"
 import Clubs from "./components/Clubs";
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
     let body;
 
     if (userInfo.missingData) {
-        body = <Body save={saveCookies} userInfo={userInfo}/>;
+        body = <SignUp save={saveCookies} userInfo={userInfo}/>;
     }
 
     if (userInfo.oldUser) {

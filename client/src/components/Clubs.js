@@ -21,6 +21,7 @@ class Clubs extends React.Component {
         const values = JSON.parse(JSON.parse(await response.text()))
         console.log(values);
 
+        // just have two arrays, items at n are related
         let imageSources = []
         let descriptions = []
 
