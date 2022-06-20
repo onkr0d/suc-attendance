@@ -19,6 +19,7 @@ class Clubs extends React.Component {
     async getData() {
         const response = await ky.get("http://localhost:8080/api/clubs");
         const values = JSON.parse(JSON.parse(await response.text()))
+        console.log("server responded with values:");
         console.log(values);
 
         // just have two arrays, items at n are related
@@ -33,7 +34,6 @@ class Clubs extends React.Component {
                 // this file is a description, we want it.
                 let response = await ky.get("http://localhost:8080/" + val);
                 let responseText = await response.text()
-                console.log(responseText);
                 descriptions.push(responseText)
             }
         }
@@ -53,18 +53,13 @@ class Clubs extends React.Component {
 
         for (let i = 0; i < imageSources.length; i++) {
             let val = imageSources[i];
-            clubs.push(<li>
+            clubs.push(<li key={i}>
                 <SingleClub clubName={val.charAt(0).toUpperCase() + val.trim().replace(/\.[^/.]+$/, "").slice(1)}
                             description={descriptions[i]}
                             imageSource={'http://localhost:8080/' + imageSources[i]}
-                >
-                </SingleClub>
+                />
             </li>)
         }
-
-        console.log("what:");
-        console.log(imageSources);
-        console.log(descriptions);
 
         return <div className={"text-white font-extrabold"}>
             <ol className={"space-y-[5%]"}>
