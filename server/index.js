@@ -7,6 +7,15 @@ const port = 8080;
 const app = express();
 
 app.use(cors(), express.static(path.join(__dirname, 'clubs')))
+// parse bodies automatically
+app.use(express.json())
+
+// this is middleware, i think
+const myLogger = function (req, res, next) {
+    console.log("LOGGED " + req.body)
+    next()
+}
+app.use(myLogger);
 
 app.get("/api/clubs", cors(), (req, res, next) => {
     const directoryPath = path.join(__dirname, 'clubs');
@@ -17,6 +26,15 @@ app.get("/api/clubs", cors(), (req, res, next) => {
         }
         return res.json(JSON.stringify(files));
     })
+})
+
+app.post("/api/update", cors(), (req, res, next) => {
+    // validate data here
+    console.log('received user data')
+    console.log(req.body)
+    res.status(200);
+
+    next();
 })
 
 const server = app.listen(port, () => {
