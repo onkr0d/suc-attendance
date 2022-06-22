@@ -18,13 +18,13 @@ function SingleClub(props) {
         // https://expressjs.com/en/guide/writing-middleware.html
         // according to the above we can send cookies as part of the
         // request explicitly, no need to put them in a body
-        console.log(await ky.post("http://localhost:8080/api/update", {
+        // unfortunately this won't make it into the MVP LOL
+        const response = await ky.post("http://localhost:8080/api/update", {
             json: {
                 name: cookies.name, id: cookies.suffolkID
             }
-        }).json())
-        // error on 21:1, idk why. incorrect response?
-
+        }).json()
+        console.log(response)
     }
 
     return <button type={"submit"} onClick={submit}

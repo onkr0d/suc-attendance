@@ -22,12 +22,12 @@ function App() {
         // don't save empty or null data
         if (name !== null && name.trim() !== '') {
             console.log("Saving name");
-            setCookie("name", name);
+            setCookie("name", name.trim());
         }
 
         if (suffolkID !== null && suffolkID.trim() !== '') {
             console.log("Saving id");
-            setCookie("suffolkID", suffolkID);
+            setCookie("suffolkID", suffolkID.trim());
         }
     }
 

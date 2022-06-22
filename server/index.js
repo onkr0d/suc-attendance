@@ -34,6 +34,12 @@ app.post("/api/update", cors(), (req, res, next) => {
     console.log(req.body)
     res.status(200);
 
+    let response = {
+        everything: "ok 👍",
+    };
+    console.log(response);
+    res.end(JSON.stringify(response));
+
     next();
 })
 
