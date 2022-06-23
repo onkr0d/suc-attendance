@@ -4,7 +4,6 @@ import ky from 'ky';
 
 class Clubs extends React.Component {
 
-
     constructor(props, context) {
         super(props, context);
         this.state = {

@@ -20,9 +20,12 @@ function App() {
         // at the very least our back-end needs to normalize names somehow
 
         // don't save empty or null data
+        let failed = false;
         if (name !== null && name.trim() !== '') {
             console.log("Saving name");
             setCookie("name", name.trim());
+        } else {
+            failed = true;
         }
 
         // will still need to do serverside checking :)
@@ -30,7 +33,16 @@ function App() {
             && /^\d+$/.test(suffolkID) && suffolkID.length === 7) {
             console.log("Saving id");
             setCookie("suffolkID", suffolkID.trim());
+        } else {
+            if (failed) {
+                // double fail! tell user both things are wrong
+            }
         }
+        if (failed) {
+            // tell user only one thing is wrong
+        }
+
+        //i really want to add a toast if something fails here :)
     }
 
     let body;
