@@ -25,7 +25,9 @@ function App() {
             setCookie("name", name.trim());
         }
 
-        if (suffolkID !== null && suffolkID.trim() !== '') {
+        // will still need to do serverside checking :)
+        if (suffolkID !== null && suffolkID.trim() !== ''
+            && /^\d+$/.test(suffolkID) && suffolkID.length === 7) {
             console.log("Saving id");
             setCookie("suffolkID", suffolkID.trim());
         }
