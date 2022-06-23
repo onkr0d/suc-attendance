@@ -25,6 +25,8 @@ function SingleClub(props) {
             }
         }).json()
         console.log(response)
+        // whoops haha there's no signed in screen :)
+        window.close();
     }
 
     return <button type={"submit"} onClick={submit}
