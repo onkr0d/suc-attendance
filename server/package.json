@@ -1,6 +1,6 @@
 {
   "name": "suvbca-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,6 @@
     "googleapis": "^104.0.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.3.0",
     "jest": "^28.1.1",
     "supertest": "^6.2.3"
   }
