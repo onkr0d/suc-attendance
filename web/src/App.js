@@ -60,7 +60,7 @@ function App() {
         <h1 className={"text-white text-5xl py-[3%] font-extralight p-20 text-center"}>welcome!</h1>
         <div className={"py-[1%]"}></div>
         <Greeting userData={[cookies.name, cookies.suffolkID]} userInfo={userInfo}/>
-        <div className={"py-[5%]"}></div>
+        <div className={"py-[2%]"}></div>
         {body}
     </div>);
 }

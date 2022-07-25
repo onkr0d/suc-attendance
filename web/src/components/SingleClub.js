@@ -19,26 +19,37 @@ function SingleClub(props) {
         // according to the above we can send cookies as part of the
         // request explicitly, no need to put them in a body
         // unfortunately this won't make it into the MVP LOL
-        const response = await ky.post("http://localhost:8080/api/update", {
-            json: {
-                name: cookies.name, id: cookies.suffolkID
-            }
-        }).json()
+
+        // is not having internet an edge case? how did user even get to this situation??
+        let response;
+        try {
+            response = await ky.post("http://localhost:8080/api/update", {
+                json: {
+                    name: cookies.name, id: cookies.suffolkID
+                }
+            }).json()
+        } catch (e) {
+            console.error("Something went wrong!")
+        }
+
         console.log(response)
         // whoops haha there's no signed in screen :)
         window.close();
     }
 
     return <button type={"submit"} onClick={submit}
-                   className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img className="object-cover w-full h-96 rounded md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-             src={props.imageSource} alt=""/>
-        <div className="flex flex-col justify-between p-4 leading-normal">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {props.clubName}</h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{props.description}</p>
+                   className="hover:bg-gray-200 max-w-md mx-auto bg-white rounded-xl border shadow-md overflow-hidden md:max-w-2xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div className="md:flex">
+            <div className="md:shrink-0">
+                <img className="h-48 w-full object-cover md:h-full md:w-48" src={props.imageSource}
+                     alt="Club Icon"/>
+            </div>
+            <div className="p-8">
+                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{props.clubName}</div>
+                <p className="text-black font-normal dark:text-gray-400">{props.description}</p>
+            </div>
         </div>
     </button>
-
 }
 
 export default SingleClub;

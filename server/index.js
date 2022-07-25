@@ -23,18 +23,41 @@ app.get("/api/clubs", cors(), (req, res, next) => {
 })
 
 app.post("/api/update", cors(), async (req, res) => {
-    const auth = new google.auth.GoogleAuth({
-        keyFile: 'notSafe/suvba-354520-7a424399cccb.json', scopes: ['https://www.googleapis.com/auth/spreadsheets']
-    })
+    let auth;
+    try {
+        // these are gcp credentials, authorized to access the google sheets api
+        auth = new google.auth.GoogleAuth({
+            keyFile: 'notSafe/suvba-354520-7a424399cccb.json', scopes: ['https://www.googleapis.com/auth/spreadsheets']
+        })
+    } catch (e) {
+        console.error("Failed to log")
+        return;
+    }
 
     console.log(req.body);
+
+    // get user data from request
+    const {name, id} = req.body;
+    console.log(name, id);
 
     // user data
     const [firstName, lastName] = req.body.name.split(' ');
     const suffolkID = req.body.id;
+    const club = req.body.clubName;
 
-    const client = await auth.getClient();
-    const googleSheets = google.sheets({version: "v4", auth: client});
+    // api data
+    let client;
+    let googleSheets;
+    try {
+        client = await auth.getClient();
+        googleSheets = google.sheets({version: "v4", auth: client});
+    } catch (e) {
+        console.error("Failed to connect to Google APIs.")
+        res.status(500);
+        res.send(JSON.stringify("Server failed to connect to Google APIs."))
+        return;
+    }
+
 
     const spreadsheetId = "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM";
 
