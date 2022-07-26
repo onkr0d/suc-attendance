@@ -30,7 +30,7 @@ app.post("/api/update", cors(), async (req, res) => {
             keyFile: 'notSafe/suvba-354520-7a424399cccb.json', scopes: ['https://www.googleapis.com/auth/spreadsheets']
         })
     } catch (e) {
-        console.error("Failed to log")
+        console.error("Failed to authenticate with GCP.")
         return;
     }
 

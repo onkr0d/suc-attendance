@@ -25,7 +25,7 @@ function SingleClub(props) {
         try {
             response = await ky.post("http://localhost:8080/api/update", {
                 json: {
-                    name: cookies.name, id: cookies.suffolkID
+                    name: cookies.name, id: cookies.suffolkID, clubName: props.clubName
                 }
             }).json()
         } catch (e) {
