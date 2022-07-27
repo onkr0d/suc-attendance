@@ -58,6 +58,10 @@ class SignUp extends React.Component {
                     <button
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
                         type="submit" onClick={() => {
+                        if (this.enteredName === null || this.enteredSuffolkID === null || this.enteredName.trim() === "" || this.enteredSuffolkID.trim() === "" || !/^\d+$/.test(this.enteredSuffolkID) || this.enteredSuffolkID.length !== 7) {
+                            // create toast here :)
+                            return;
+                        }
                         this.props.save(this.enteredName, this.enteredSuffolkID)
                     }}>
                         {buttonText}
