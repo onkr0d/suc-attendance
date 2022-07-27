@@ -14,6 +14,7 @@ function SingleClub(props) {
         console.log("submitting data:");
         console.log(cookies.name)
         console.log(cookies.suffolkID)
+        console.log(props.clubName.toLowerCase())
 
         // https://expressjs.com/en/guide/writing-middleware.html
         // according to the above we can send cookies as part of the
@@ -25,11 +26,12 @@ function SingleClub(props) {
         try {
             response = await ky.post("http://localhost:8080/api/update", {
                 json: {
-                    name: cookies.name, id: cookies.suffolkID, clubName: props.clubName
+                    name: cookies.name, id: cookies.suffolkID, clubName: props.clubName.toLowerCase()
                 }
             }).json()
         } catch (e) {
             console.error("Something went wrong!")
+            return;
         }
 
         console.log(response)

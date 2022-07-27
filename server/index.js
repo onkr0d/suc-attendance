@@ -31,6 +31,9 @@ app.post("/api/update", cors(), async (req, res) => {
         })
     } catch (e) {
         console.error("Failed to authenticate with GCP.")
+        console.error(e);
+        res.status(500);
+        res.send(JSON.stringify("Failed to authenticate with GCP."));
         return;
     }
 
@@ -59,8 +62,17 @@ app.post("/api/update", cors(), async (req, res) => {
     }
 
 
-    const spreadsheetId = "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM";
+    const spreadsheetId = findAppropriateID(club);
 
+    if (!spreadsheetId) {
+        console.error("Failed to find spreadsheet ID.")
+        console.error("Club is probably not in the config.json file.")
+        res.status(500);
+        res.send(JSON.stringify("Server failed to find spreadsheet ID."))
+        return;
+    }
+
+    console.log(spreadsheetId);
     // write row to spreadsheet
     await googleSheets.spreadsheets.values.append({
         auth, spreadsheetId, range: "Sheet1!A:E", valueInputOption: "USER_ENTERED", resource: {
@@ -73,6 +85,16 @@ app.post("/api/update", cors(), async (req, res) => {
     res.send(JSON.stringify("👍"));
 })
 
+/**
+ * Parses club.json into a map, and finds the appropriate spreadsheet id. Returns the id, or null if not found.
+ * @param clubName
+ * @return {string | undefined}
+ */
+function findAppropriateID(clubName) {
+    const clubData = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
+    const clubMap = new Map(Object.entries(clubData));
+    return clubMap.get(clubName.toLowerCase());
+}
 
 const server = app.listen(port, () => {
     console.log('server listening on', port);
