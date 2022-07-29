@@ -1,4 +1,5 @@
 import React from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 class SignUp extends React.Component {
 
@@ -60,6 +61,8 @@ class SignUp extends React.Component {
                         type="submit" onClick={() => {
                         if (this.enteredName === null || this.enteredSuffolkID === null || this.enteredName.trim() === "" || this.enteredSuffolkID.trim() === "" || !/^\d+$/.test(this.enteredSuffolkID) || this.enteredSuffolkID.length !== 7) {
                             // create toast here :)
+                            toast.error("Voilà!")
+                            console.log("Creating toast")
                             return;
                         }
                         this.props.save(this.enteredName, this.enteredSuffolkID)

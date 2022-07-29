@@ -18,6 +18,9 @@ app.get("/api/clubs", cors(), (req, res, next) => {
         if (err) {
             console.log("Cannot read directory", err)
         }
+        // strip useless .DS_Store files from the list
+        files = files.filter(file => !file.startsWith("."));
+
         return res.json(JSON.stringify(files));
     })
 })

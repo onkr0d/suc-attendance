@@ -27,8 +27,8 @@ function App() {
         // will still need to do serverside checking :)
         console.log("Saving user data to cookies")
 
-        setCookie("name", name.trim());
-        setCookie("suffolkID", suffolkID.trim());
+        setCookie("name", name.trim(), {secure: true});
+        setCookie("suffolkID", suffolkID.trim(), {secure: true});
     }
 
     let body;
