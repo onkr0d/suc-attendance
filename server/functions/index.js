@@ -1,21 +1,18 @@
 const functions = require("firebase-functions");
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser')
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+const app = express();
+exports.app = functions.https.onRequest(app);
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.json())
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
 
-exports.donkeyDick = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs! We out here 😎", {structuredData: true});
-  response.send("Donkey dick haha :)");
-});
-
-exports.logUserIn = functions.https.onRequest((request, response) => {
-  functions.logger.info("Logging user in");
-  functions.logger.info(request.body);
-  functions.logger.info(request.body);
-  response.send("Logged in");
-});
+app.get("*", (request, response) => {
+    response.send("Hello from Express on Firebase!")
+    functions.logger.info(request.body);
+    // parse json from request body
+    functions.logger.info(request.body.name);
+})

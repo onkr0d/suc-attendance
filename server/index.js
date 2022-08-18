@@ -11,6 +11,7 @@ app.use(cors(), express.static(path.join(__dirname, 'clubs')))
 // parse bodies automatically
 app.use(express.json())
 
+// FIXME This is a temporary solution. The images should be hosted on the frontend
 app.get("/api/clubs", cors(), (req, res, next) => {
     const directoryPath = path.join(__dirname, 'clubs');
 
