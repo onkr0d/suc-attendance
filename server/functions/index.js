@@ -5,14 +5,11 @@ const bodyParser = require('body-parser')
 
 const app = express();
 exports.app = functions.https.onRequest(app);
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(bodyParser.json())
 
-app.get("*", (request, response) => {
-    response.send("Hello from Express on Firebase!")
+app.post("/ayo", cors(), (request, response) => {
     functions.logger.info(request.body);
-    functions.logger.info(request.body.name);
-    functions.logger.info("User '" + request.body.name + "' with SUid " + request.body.id + " is trying to sign into " + request.body.clubName);
-
+    response.status(200).send("User: " + request.body.name + "; SU-id: " + request.body.id + "; club: " + request.body.clubName);
 })
