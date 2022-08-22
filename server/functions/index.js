@@ -3,8 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const {google} = require("googleapis");
-const fs = require("fs");
-const path = require("path");
 
 const app = express();
 exports.app = functions.https.onRequest(app);
@@ -12,7 +10,11 @@ app.use(cors({origin: true}));
 app.use(express.json());
 app.use(bodyParser.json())
 
+let clubToSpreadsheetMap = new Map();
+clubToSpreadsheetMap.set("volleyball", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
+
 app.post("/api/update", cors(), async (request, response) => {
+    functions.logger.info("Trying to sign " + request.body.name + " in for " + request.body.clubName + "with ID " + request.body.id);
     let auth;
     try {
         // these are gcp credentials, authorized to access the google sheets api
@@ -22,14 +24,12 @@ app.post("/api/update", cors(), async (request, response) => {
     } catch (e) {
         console.error("Failed to authenticate with GCP.")
         console.error(e);
-        response.status(500);
-        response.send(JSON.stringify("Failed to authenticate with GCP."));
+        response.status(500).send(JSON.stringify("Failed to authenticate with GCP."));
         return;
     }
 
     // get user data from request
     const {name, id} = request.body;
-    console.log("User is: " + name, id);
 
     // user data
     const [firstName, lastName] = request.body.name.split(' ');
@@ -48,13 +48,12 @@ app.post("/api/update", cors(), async (request, response) => {
         return;
     }
 
-    const spreadsheetId = findAppropriateID(club);
+    const spreadsheetId = findAppropriateClubID(club);
 
     if (!spreadsheetId) {
         console.error("Failed to find spreadsheet ID.")
         console.error("Club is probably not in the config.json file.")
-        response.status(500);
-        response.send(JSON.stringify("Server failed to find spreadsheet ID."))
+        response.status(500).send(JSON.stringify("Server failed to find spreadsheet ID."))
         return;
     }
 
@@ -66,18 +65,15 @@ app.post("/api/update", cors(), async (request, response) => {
         }
     })
 
-
-    response.status(200);
-    response.send(JSON.stringify("👍"));
+    response.status(200).send(JSON.stringify("👍"));
 })
 
 /**
- * Parses club.json into a map, and finds the appropriate spreadsheet id. Returns the id, or null if not found.
- * @param clubName
- * @return {string | undefined}
+ * Finds the appropriate spreadsheet ID for the given club.
+ *
+ * @param club The club to find the spreadsheet ID for.
+ * @return {string} The spreadsheet ID for the given club.
  */
-function findAppropriateID(clubName) {
-    const clubData = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json')));
-    const clubMap = new Map(Object.entries(clubData));
-    return clubMap.get(clubName.toLowerCase());
+function findAppropriateClubID(club) {
+    return clubToSpreadsheetMap.get(club.toLowerCase());
 }
