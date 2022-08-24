@@ -24,7 +24,7 @@ function SingleClub(props) {
         // is not having internet an edge case? how did user even get to this situation??
         let response;
         try {
-            response = await ky.post("http://localhost:8080/api/update", {
+            response = await ky.post("https://us-central1-suvba-354520.cloudfunctions.net/app/api/update", {
                 json: {
                     name: cookies.name, id: cookies.suffolkID, clubName: props.clubName.toLowerCase()
                 }
