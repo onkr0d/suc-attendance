@@ -1,6 +1,5 @@
 import React from "react"
 import SingleClub from "./SingleClub";
-import ky from 'ky';
 
 class Clubs extends React.Component {
 
@@ -15,33 +14,24 @@ class Clubs extends React.Component {
         this.getData();
     }
 
+    /**
+     * Prepare club data.
+     */
     async getData() {
-        const response = await ky.get("http://localhost:8080/api/clubs");
-        const values = JSON.parse(JSON.parse(await response.text()))
-        console.log("server responded with values:");
-        console.log(values);
+        // well, this is shit but it works. instead of programmatically creating the list of clubs, 
+        // i just manually create all of them :)
 
         // just have two arrays, items at n are related
-        let imageSources = []
-        let descriptions = []
+        let imageSources = ["/assets/fencing.jpeg", "/assets/rowing.jpeg", "/assets/soccer.jpeg", "/assets/volleyball.jpeg"]
+        let names = ["fencing", "rowing", "soccer", "volleyball"];
+        let descriptions = ["Fencing is a group of three related combat sports. The three disciplines in modern fencing are the foil, the épée, and the sabre; winning points are made through the weapon's contact with an opponent.", "Rowing, sometimes called crew in the United States, is the sport of racing boats using oars. It differs from paddling sports in that rowing oars are attached to the boat using oarlocks, while paddles are not connected to the boat. Rowing is divided into two disciplines: sculling and sweep rowing.", "Soccer is a team sport played between two teams of eleven players with a spherical ball. The ball is usually spherical, but may be flat or cylindrical. The game is played on a rectangular field with a goal at each end. The object of the game is to score by getting the ball into the opposing goal. The game ends when the ball is no longer in play, or when one of the teams has won.", "Volleyball is a team sport played between two teams of eleven players with a spherical ball. The ball is usually spherical, but may be flat or cylindrical. The game is played on a rectangular field with a goal at each end. The object of the game is to score by getting the ball into the opposing goal. The game ends when the ball is no longer in play, or when one of the teams has won."]
 
-        for (const val of values) {
-            if (!val.toString().endsWith(".txt")) {
-                // this file is an image link :)
-                imageSources.push(val.toString())
-            } else {
-                // this file is a description, we want it.
-                let response = await ky.get("http://localhost:8080/" + val);
-                let responseText = await response.text()
-                descriptions.push(responseText)
-            }
-        }
         this.setState({isLoaded: true})
-        this.setState({imageSources: imageSources, descriptions: descriptions});
+        this.setState({imageSources: imageSources, descriptions: descriptions, names: names});
     }
 
     render() {
-        const {error, isLoaded, imageSources, descriptions} = this.state;
+        const {error, isLoaded, imageSources, descriptions, names} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
@@ -51,11 +41,10 @@ class Clubs extends React.Component {
         let clubs = [];
 
         for (let i = 0; i < imageSources.length; i++) {
-            let val = imageSources[i];
             clubs.push(<li key={i}>
-                <SingleClub clubName={val.charAt(0).toUpperCase() + val.trim().replace(/\.[^/.]+$/, "").slice(1)}
+                <SingleClub clubName={names[i]}
                             description={descriptions[i]}
-                            imageSource={'http://localhost:8080/' + imageSources[i]}
+                            imageSource={imageSources[i]}
                 />
             </li>)
         }
