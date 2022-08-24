@@ -14,7 +14,7 @@ let clubToSpreadsheetMap = new Map();
 clubToSpreadsheetMap.set("volleyball", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
 
 app.post("/api/update", cors(), async (request, response) => {
-    functions.logger.info("Trying to sign " + request.body.name + " in for " + request.body.clubName + "with ID " + request.body.id);
+    functions.logger.info("Trying to sign " + request.body.name + " in for " + request.body.clubName + " with ID " + request.body.id);
     let auth;
     try {
         // these are gcp credentials, authorized to access the google sheets api
@@ -57,7 +57,6 @@ app.post("/api/update", cors(), async (request, response) => {
         return;
     }
 
-    console.log(spreadsheetId);
     // write row to spreadsheet
     await googleSheets.spreadsheets.values.append({
         auth, spreadsheetId, range: "Sheet1!A:E", valueInputOption: "USER_ENTERED", resource: {
@@ -65,6 +64,7 @@ app.post("/api/update", cors(), async (request, response) => {
         }
     })
 
+    functions.logger.info("Successfully signed " + request.body.name + " in.");
     response.status(200).send(JSON.stringify("👍"));
 })
 
