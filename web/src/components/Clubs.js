@@ -22,9 +22,9 @@ class Clubs extends React.Component {
         // i just manually create all of them :)
 
         // just have two arrays, items at n are related
-        let imageSources = ["/assets/fencing.jpeg", "/assets/rowing.jpeg", "/assets/soccer.jpeg", "/assets/volleyball.jpeg"]
-        let names = ["fencing", "rowing", "soccer", "volleyball"];
-        let descriptions = ["Fencing is a group of three related combat sports. The three disciplines in modern fencing are the foil, the épée, and the sabre; winning points are made through the weapon's contact with an opponent.", "Rowing, sometimes called crew in the United States, is the sport of racing boats using oars. It differs from paddling sports in that rowing oars are attached to the boat using oarlocks, while paddles are not connected to the boat. Rowing is divided into two disciplines: sculling and sweep rowing.", "Soccer is a team sport played between two teams of eleven players with a spherical ball. The ball is usually spherical, but may be flat or cylindrical. The game is played on a rectangular field with a goal at each end. The object of the game is to score by getting the ball into the opposing goal. The game ends when the ball is no longer in play, or when one of the teams has won.", "Volleyball is a team sport played between two teams of eleven players with a spherical ball. The ball is usually spherical, but may be flat or cylindrical. The game is played on a rectangular field with a goal at each end. The object of the game is to score by getting the ball into the opposing goal. The game ends when the ball is no longer in play, or when one of the teams has won."]
+        let imageSources = ["/assets/sucsc.jpeg", "/assets/suffolk-default.png", "/assets/volleyball.jpeg"]
+        let names = ["computer science", "mock trial", "volleyball"];
+        let descriptions = ["Interested in Computer Science? Join the computer science club for workshops, homework help, internship opportunities, and much more!", "Join SUMTT! We are back and better than ever, are you ready to live out your Elle Woods dreams?", "We love playing volleyball! Whether you play competitively or have never played before, all are welcome. Join us every Saturday in Ridgeway for our open court nights!"]
 
         this.setState({isLoaded: true})
         this.setState({imageSources: imageSources, descriptions: descriptions, names: names});
@@ -48,6 +48,7 @@ class Clubs extends React.Component {
             <ol className={"space-y-[5%]"}>
                 {clubs}
             </ol>
+            <div className={"py-[3%]"}/>
         </div>
     }
 }
