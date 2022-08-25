@@ -48,6 +48,9 @@ app.post("/api/update", cors(), async (request, response) => {
         return;
     }
 
+    // log the request to the console
+    console.log(request.body);
+
     const spreadsheetId = findAppropriateClubID(club);
 
     if (!spreadsheetId) {

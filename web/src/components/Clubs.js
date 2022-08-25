@@ -6,7 +6,7 @@ class Clubs extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            error: null, isLoaded: false, descriptions: [], imageSources: []
+            descriptions: [], imageSources: [], names: []
         };
     }
 
@@ -31,12 +31,7 @@ class Clubs extends React.Component {
     }
 
     render() {
-        const {error, isLoaded, imageSources, descriptions, names} = this.state;
-        if (error) {
-            return <div>Error: {error.message}</div>
-        } else if (!isLoaded) {
-            return <div>Loading...</div>
-        }
+        const {imageSources, descriptions, names} = this.state;
 
         let clubs = [];
 
