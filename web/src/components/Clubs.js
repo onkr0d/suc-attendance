@@ -22,9 +22,9 @@ class Clubs extends React.Component {
         // i just manually create all of them :)
 
         // just have two arrays, items at n are related
-        let imageSources = ["/assets/sucsc.jpeg", "/assets/suffolk-default.png", "/assets/volleyball.jpeg"]
-        let names = ["computer science", "mock trial", "volleyball"];
-        let descriptions = ["Interested in Computer Science? Join the computer science club for workshops, homework help, internship opportunities, and much more!", "Join SUMTT! We are back and better than ever, are you ready to live out your Elle Woods dreams?", "We love playing volleyball! Whether you play competitively or have never played before, all are welcome. Join us every Saturday in Ridgeway for our open court nights!"]
+        let imageSources = ["/assets/suffolk-default.png", "/assets/sucsc.jpeg", "/assets/volleyball.jpeg"]
+        let names = ["mock trial", "computer science", "volleyball"];
+        let descriptions = ["Join SUMTT! We are back and better than ever, are you ready to live out your Elle Woods dreams?", "Interested in Computer Science? Join the computer science club for workshops, homework help, internship opportunities, and much more!", "We love playing volleyball! Whether you play competitively or have never played before, all are welcome. Join us every Saturday in Ridgeway for our open court nights!"]
 
         this.setState({isLoaded: true})
         this.setState({imageSources: imageSources, descriptions: descriptions, names: names});
