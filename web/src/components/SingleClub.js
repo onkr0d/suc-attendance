@@ -23,7 +23,7 @@ function SingleClub(props) {
         // unfortunately this won't make it into the MVP LOL
 
         if (true) {
-            toast('This club is not currently activated. Contact club leaders for more information.')
+            toast.error('This club is not currently activated. Contact club leaders for more information.')
             return;
         }
 
@@ -49,7 +49,7 @@ function SingleClub(props) {
                    className="hover:bg-gray-200 max-w-md mx-auto bg-white rounded-xl border shadow-md overflow-hidden md:max-w-2xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div className="md:flex">
             <div className="md:shrink-0">
-                <img className="h-48 w-full object-cover md:h-full md:w-48" src={props.imageSource}
+                <img className="h-48 w-full object-cover md:h-full md:w-48 object-scale-down" src={props.imageSource}
                      alt="Club Icon"/>
             </div>
             <div className="p-8">
