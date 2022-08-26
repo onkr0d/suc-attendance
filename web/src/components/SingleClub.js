@@ -12,6 +12,11 @@ function SingleClub(props) {
     const [cookies] = useCookies(['name', 'suffolkID']);
 
     async function submit() {
+        if (true) {
+            toast.error('This club is not currently activated. Contact club leaders for more information.')
+            return;
+        }
+
         console.log("submitting data:");
         console.log(cookies.name)
         console.log(cookies.suffolkID)
@@ -21,11 +26,6 @@ function SingleClub(props) {
         // according to the above we can send cookies as part of the
         // request explicitly, no need to put them in a body
         // unfortunately this won't make it into the MVP LOL
-
-        if (true) {
-            toast.error('This club is not currently activated. Contact club leaders for more information.')
-            return;
-        }
 
         // is not having internet an edge case? how did user even get to this situation??
         let response;
