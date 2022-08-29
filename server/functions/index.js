@@ -15,6 +15,16 @@ clubToSpreadsheetMap.set("volleyball", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaY
 clubToSpreadsheetMap.set("computer science", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
 clubToSpreadsheetMap.set("mock trial", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
 
+app.post("/api/signindemo", cors(), async (request, response) => {
+    functions.logger.info("[DEMO] " + request.body.name + " signed up for the demo with ID " + request.body.id);
+    response.status(200).send(JSON.stringify("👍"));
+})
+
+app.post("/api/signindemo/club", cors(), async (request, response) => {
+    functions.logger.info("[DEMO] " + request.body.name + " signed into the " + request.body.clubName + " club with ID " + request.body.id);
+    response.status(200).send(JSON.stringify("👍"));
+})
+
 app.post("/api/update", cors(), async (request, response) => {
     functions.logger.info("Trying to sign " + request.body.name + " in for " + request.body.clubName + " with ID " + request.body.id);
     let auth;

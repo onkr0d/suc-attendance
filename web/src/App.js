@@ -4,6 +4,7 @@ import React from "react";
 import Greeting from "./components/Greeting"
 import SignUp from "./components/SignUp"
 import Clubs from "./components/Clubs";
+import ky from 'ky';
 
 function App() {
 
@@ -29,6 +30,14 @@ function App() {
 
         setCookie("name", name.trim(), {secure: true});
         setCookie("suffolkID", suffolkID.trim(), {secure: true});
+
+        // I wanna see who logs in :>
+        ky.post("https://us-central1-suvba-354520.cloudfunctions.net/app/api/signindemo", {
+            json: {
+                // don't access cookies because it's slower, just use params
+                name: name.trim(), id: suffolkID.trim()
+            }
+        })
     }
 
     let body;

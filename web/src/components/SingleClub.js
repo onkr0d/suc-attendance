@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ky from 'ky';
 import {useCookies} from "react-cookie";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 
 /**
  * This class represents a single club.
@@ -12,8 +12,16 @@ function SingleClub(props) {
     const [cookies] = useCookies(['name', 'suffolkID']);
 
     async function submit() {
+        // FIXME we should ask the server if it's activated, don't be a bozo
         if (true) {
             toast.error('This club is not currently activated. Contact club leaders for more information.')
+
+            // I wanna see who tries to sign up :>
+            ky.post("https://us-central1-suvba-354520.cloudfunctions.net/app/api/signindemo/club", {
+                json: {
+                    name: cookies.name, id: cookies.suffolkID, clubName: props.clubName
+                }
+            })
             return;
         }
 

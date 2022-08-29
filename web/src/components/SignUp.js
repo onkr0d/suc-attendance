@@ -1,5 +1,5 @@
 import React from "react";
-import toast from 'react-hot-toast';
+import toast, {Toaster} from 'react-hot-toast';
 
 class SignUp extends React.Component {
 
@@ -58,17 +58,18 @@ class SignUp extends React.Component {
                 <div className="flex items-center justify-center">
                     <button
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
-                        type="submit" onClick={() => {
+                        type="submit" onClick={(event) => {
                         if (this.enteredName === null || this.enteredSuffolkID === null || this.enteredName.trim() === "" || this.enteredSuffolkID.trim() === "" || !/^\d+$/.test(this.enteredSuffolkID) || this.enteredSuffolkID.length !== 7) {
-                            // create toast here :)
-                            toast.error("Voilà!")
-                            console.log("Creating toast")
+                            // User messed up
+                            toast.error("Invalid credentials entered. Please try again!")
+                            event.preventDefault();
                             return;
                         }
                         this.props.save(this.enteredName, this.enteredSuffolkID)
                     }}>
                         {buttonText}
                     </button>
+                    <Toaster/>
                 </div>
             </form>
         </div>
