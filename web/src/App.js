@@ -10,11 +10,7 @@ function App() {
 
     const [cookies, setCookie] = useCookies(['name', 'suffolkID']);
 
-    console.log("name " + cookies.name);
-    console.log("suffolk id " + cookies.suffolkID);
-
     let userInfo = new UserInformation(cookies.name, cookies.suffolkID);
-
 
     /**
      * Saves user data to cookies.

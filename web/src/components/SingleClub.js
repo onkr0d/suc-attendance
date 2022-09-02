@@ -25,11 +25,6 @@ function SingleClub(props) {
             return;
         }
 
-        console.log("submitting data:");
-        console.log(cookies.name)
-        console.log(cookies.suffolkID)
-        console.log(props.clubName.toLowerCase())
-
         // https://expressjs.com/en/guide/writing-middleware.html
         // according to the above we can send cookies as part of the
         // request explicitly, no need to put them in a body

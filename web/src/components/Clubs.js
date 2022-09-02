@@ -21,7 +21,7 @@ class Clubs extends React.Component {
         // well, this is shit but it works. instead of programmatically creating the list of clubs, 
         // i just manually create all of them :)
 
-        // just have two arrays, items at n are related
+        // just have arrays, items at n are related
         let imageSources = ["/assets/suffolk-default.png", "/assets/sucsc.jpeg", "/assets/volleyball.jpeg"]
         let names = ["mock trial", "computer science", "volleyball"];
         let descriptions = ["Join SUMTT! We are back and better than ever, are you ready to live out your Elle Woods dreams?", "Interested in Computer Science? Join the computer science club for workshops, homework help, internship opportunities, and much more!", "We love playing volleyball! Whether you play competitively or have never played before, all are welcome. Join us every Saturday in Ridgeway for our open court nights!"]
