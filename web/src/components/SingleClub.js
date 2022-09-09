@@ -7,16 +7,23 @@ import toast, {Toaster} from 'react-hot-toast';
  * This class represents a single club.
  */
 function SingleClub(props) {
-    useState({clubName: props.clubName, description: props.description, imageSource: props.imageSource});
+    useState({
+        clubName: props.clubName,
+        description: props.description,
+        imageSource: props.imageSource,
+        activated: props.activated
+    });
 
     const [cookies] = useCookies(['name', 'suffolkID']);
 
     async function submit() {
         // FIXME we should ask the server if it's activated, don't be a bozo
-        if (true) {
+        //  Check???????
+        if (!props.activated) {
             toast.error('This club is not currently activated. Contact club leaders for more information.')
 
             // I wanna see who tries to sign up :>
+            // this is an endpoint just to log who tries to sign up for a club that isn't activated
             ky.post("https://us-central1-suvba-354520.cloudfunctions.net/app/api/signindemo/club", {
                 json: {
                     name: cookies.name, id: cookies.suffolkID, clubName: props.clubName
@@ -33,6 +40,7 @@ function SingleClub(props) {
         // is not having internet an edge case? how did user even get to this situation??
         let response;
         try {
+            // this is a prod endpoint
             response = await ky.post("https://us-central1-suvba-354520.cloudfunctions.net/app/api/update", {
                 json: {
                     name: cookies.name, id: cookies.suffolkID, clubName: props.clubName.toLowerCase()
@@ -45,6 +53,7 @@ function SingleClub(props) {
 
         console.log(response)
         // whoops haha there's no signed in screen :)
+        toast.success("Signed in successfully! You may now close this window.")
         window.close();
     }
 

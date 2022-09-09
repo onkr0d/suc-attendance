@@ -10,18 +10,27 @@ app.use(cors({origin: true}));
 app.use(express.json());
 app.use(bodyParser.json())
 
-let clubToSpreadsheetMap = new Map();
-clubToSpreadsheetMap.set("volleyball", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
-clubToSpreadsheetMap.set("computer science", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
-clubToSpreadsheetMap.set("mock trial", "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM");
+class Club {
 
+    // FIXME we still need to add the description to each club :)
+    constructor(name, spreadsheetId, isActivated) {
+        this.name = name.toLowerCase();
+        this.spreadsheetId = spreadsheetId;
+        this.isActivated = isActivated;
+    }
+}
+
+const defaultSpreadSheetID = "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM";
+let clubList = [new Club("volleyball", null, false), new Club("computer science", null, false), new Club("mock trial", "1afySUqmr2pelwFoUCZzZCeBS2q9Bbe9FMaxYQiZqWKw", true)];
+
+// these are demo only :)
 app.post("/api/signindemo", cors(), async (request, response) => {
-    functions.logger.info("[DEMO] " + request.body.name + " signed up for the demo with ID " + request.body.id);
+    functions.logger.info(request.body.name + " signed up with ID " + request.body.id + " !");
     response.status(200).send(JSON.stringify("👍"));
 })
 
 app.post("/api/signindemo/club", cors(), async (request, response) => {
-    functions.logger.info("[DEMO] " + request.body.name + " signed into the " + request.body.clubName + " club with ID " + request.body.id);
+    functions.logger.info(request.body.name + " signed into the UNACTIVATED " + request.body.clubName + " club with ID " + request.body.id);
     response.status(200).send(JSON.stringify("👍"));
 })
 
@@ -34,14 +43,11 @@ app.post("/api/update", cors(), async (request, response) => {
             keyFile: 'suvba-354520-7a424399cccb.json', scopes: ['https://www.googleapis.com/auth/spreadsheets']
         })
     } catch (e) {
-        console.error("Failed to authenticate with GCP.")
-        console.error(e);
+        functions.logger.error("Failed to authenticate with GCP.")
+        functions.logger.error(e);
         response.status(500).send(JSON.stringify("Failed to authenticate with GCP."));
         return;
     }
-
-    // get user data from request
-    const {name, id} = request.body;
 
     // user data
     const [firstName, lastName] = request.body.name.split(' ');
@@ -55,19 +61,16 @@ app.post("/api/update", cors(), async (request, response) => {
         client = await auth.getClient();
         googleSheets = google.sheets({version: "v4", auth: client});
     } catch (e) {
-        console.error("Failed to connect to Google APIs.")
+        functions.logger.error("Failed to connect to Google APIs.")
         response.status(500).send(JSON.stringify("Server failed to connect to Google APIs."))
         return;
     }
 
-    // log the request to the console
-    console.log(request.body);
-
     const spreadsheetId = findAppropriateClubID(club);
 
     if (!spreadsheetId) {
-        console.error("Failed to find spreadsheet ID.")
-        console.error("Club is probably not in the config.json file.")
+        functions.logger.error("Failed to find spreadsheet ID.")
+        functions.logger.error("Club is probably not in the config.json file.")
         response.status(500).send(JSON.stringify("Server failed to find spreadsheet ID."))
         return;
     }
@@ -90,5 +93,23 @@ app.post("/api/update", cors(), async (request, response) => {
  * @return {string} The spreadsheet ID for the given club.
  */
 function findAppropriateClubID(club) {
-    return clubToSpreadsheetMap.get(club.toLowerCase());
+    // return spreadsheet id or default
+    if (clubList.find(c => c.name.toLowerCase() === club.toLowerCase())) {
+        // wtf 'return undefined || defined' is so cool
+        return clubList.find(c => c.name === club).spreadsheetId || defaultSpreadSheetID;
+    }
+    return defaultSpreadSheetID;
 }
+
+app.get("/api/clubs", cors(), async (request, response) => {
+    functions.logger.info("Getting club list.");
+    let final = [];
+    for (let club of clubList) {
+        // remove spreadsheet IDs from the club list
+        // i don't actually know how this works, something to do with object destructuring
+        const {spreadsheetId, ...strippedClub} = club;
+        final.push(strippedClub);
+    }
+
+    response.status(200).send(JSON.stringify(final));
+})
