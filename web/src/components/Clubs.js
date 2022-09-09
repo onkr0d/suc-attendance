@@ -67,10 +67,12 @@ class Clubs extends React.Component {
             </li>)
         }
 
-        return <div className={"text-white font-extrabold"}>
+        return <div className={"text-white"}>
             <ol className={"space-y-[5%]"}>
                 {clubs}
             </ol>
+            <div className={"py-[3%]"}/>
+            <p className={"text-center"}>Want this for all your clubs? Tell your club leaders today!</p>
             <div className={"py-[3%]"}/>
         </div>
     }
