@@ -64,6 +64,7 @@ function SingleClub(props) {
             </div>
             <div className="p-8">
                 <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{props.clubName}</div>
+                <div className={"py-[1%]"}/>
                 <p className="text-black font-normal dark:text-gray-400">{props.description}</p>
             </div>
         </div>
