@@ -1,13 +1,14 @@
 import React from "react"
 import SingleClub from "./SingleClub";
 import ky from 'ky';
+import { MagnifyingGlass } from  'react-loader-spinner'
 
 class Clubs extends React.Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            descriptions: [], imageSources: [], clubNames: []
+            descriptions: [], imageSources: [], clubNames: [], loaded: false
         };
     }
 
@@ -47,7 +48,8 @@ class Clubs extends React.Component {
             imageSources: imageSources,
             descriptions: descriptions,
             clubNames: clubNames,
-            activated: activationStatus
+            activated: activationStatus,
+            loaded: true
         });
         // also? side note? i hate this. it's o(n^2) to connect CLUBS to IMAGES. i hate it.
     }
@@ -56,6 +58,21 @@ class Clubs extends React.Component {
         const {clubNames, descriptions, imageSources, activated} = this.state;
 
         let clubs = [];
+
+        if (!this.state.loaded) {
+            return <div>
+                <MagnifyingGlass
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="MagnifyingGlass-loading"
+                    glassColor = '#c0efff'
+                    color = '#e15b64'
+                    className={"flex items-center justify-center h-screen"}
+                />
+                <p className={"text-white text-center flex items-center justify-center"}>Retrieving clubs...</p>
+            </div>
+        }
 
         for (let i = 0; i < imageSources.length; i++) {
             clubs.push(<li key={i}>
