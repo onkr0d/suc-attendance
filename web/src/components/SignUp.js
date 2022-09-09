@@ -59,12 +59,10 @@ class SignUp extends React.Component {
                     <button
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
                         type="submit" onClick={(event) => {
+                        // FIXME there's an uncaught error here that happens if you just click the button without entering anything
                         let errorMessage = undefined;
                         if (this.enteredName === null || this.enteredName.trim() === "") {
                             errorMessage = "Please enter your name.";
-                        }
-                        if (this.enteredSuffolkID === null || this.enteredSuffolkID.trim() === "") {
-                            errorMessage = "Please enter your Suffolk ID.";
                         }
                         if (this.enteredSuffolkID.length !== 7) {
                             errorMessage = "Your Suffolk ID must be 7 digits long.";
@@ -72,7 +70,9 @@ class SignUp extends React.Component {
                         if (!/^\d+$/.test(this.enteredSuffolkID)) {
                             errorMessage = "Your Suffolk ID must contain only numbers.";
                         }
-
+                        if (this.enteredSuffolkID === null || this.enteredSuffolkID.trim() === "") {
+                            errorMessage = "Please enter your Suffolk ID.";
+                        }
                         if (errorMessage !== undefined) {
                             // User messed up
                             toast.error(errorMessage);
