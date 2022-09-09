@@ -17,8 +17,6 @@ function SingleClub(props) {
     const [cookies] = useCookies(['name', 'suffolkID']);
 
     async function submit() {
-        // FIXME we should ask the server if it's activated, don't be a bozo
-        //  Check???????
         if (!props.activated) {
             toast.error('This club is not currently activated. Contact club leaders for more information.')
 

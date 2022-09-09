@@ -38,7 +38,7 @@ class Clubs extends React.Component {
               if (imageSource.includes(club.name)) {
                 descriptions.push(club.description);
                 clubNames.push(club.name);
-                activationStatus.push(club.activated);
+                activationStatus.push(club.isActivated);
               }
             })
         });
