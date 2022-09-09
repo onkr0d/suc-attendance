@@ -37,7 +37,7 @@ class Clubs extends React.Component {
             clubs.forEach((club) => {
               if (imageSource.includes(club.name)) {
                 descriptions.push(club.description);
-                clubNames.push(club.name);
+                clubNames.push(club.name.replace("-", " "));
                 activationStatus.push(club.isActivated);
               }
             })
