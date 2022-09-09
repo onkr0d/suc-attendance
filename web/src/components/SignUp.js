@@ -59,9 +59,23 @@ class SignUp extends React.Component {
                     <button
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
                         type="submit" onClick={(event) => {
-                        if (this.enteredName === null || this.enteredSuffolkID === null || this.enteredName.trim() === "" || this.enteredSuffolkID.trim() === "" || !/^\d+$/.test(this.enteredSuffolkID) || this.enteredSuffolkID.length !== 7) {
+                        let errorMessage = undefined;
+                        if (this.enteredName === null || this.enteredName.trim() === "") {
+                            errorMessage = "Please enter your name.";
+                        }
+                        if (this.enteredSuffolkID === null || this.enteredSuffolkID.trim() === "") {
+                            errorMessage = "Please enter your Suffolk ID.";
+                        }
+                        if (this.enteredSuffolkID.length !== 7) {
+                            errorMessage = "Your Suffolk ID must be 7 digits long.";
+                        }
+                        if (!/^\d+$/.test(this.enteredSuffolkID)) {
+                            errorMessage = "Your Suffolk ID must contain only numbers.";
+                        }
+
+                        if (errorMessage !== undefined) {
                             // User messed up
-                            toast.error("Invalid credentials entered. Please try again!")
+                            toast.error(errorMessage);
                             event.preventDefault();
                             return;
                         }
