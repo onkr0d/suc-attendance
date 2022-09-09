@@ -1,5 +1,6 @@
 import React from "react"
 import SingleClub from "./SingleClub";
+import ky from 'ky';
 
 class Clubs extends React.Component {
 
@@ -18,18 +19,37 @@ class Clubs extends React.Component {
      * Prepare club data.
      */
     async getData() {
-        // well, this is shit but it works. instead of programmatically creating the list of clubs, 
-        // i just manually create all of them :)
+        // clubs are composed of an image source, a description, a name, and it's activation status.
+        // let's assemble those now.
+        let imageSources = ["/assets/mock-trial.jpeg", "/assets/computer-science.jpeg", "/assets/volleyball.jpeg"]
+        // the reason why we have images stored on the client is because we want to avoid long load times.
 
-        // just have arrays, items at n are related
-        let imageSources = ["/assets/suffolk-default.png", "/assets/sucsc.jpeg", "/assets/volleyball.jpeg"]
+        // since we have the image sources, let's request the remaining:
+        // descriptions, names and activation status from the server
+        let response = await ky.get("https://us-central1-suvba-354520.cloudfunctions.net/app/api/clubs");
+        let clubs = JSON.parse(await response.text());
+        let descriptions = [];
+        let clubNames = [];
+        let activationStatus = [];
 
-        // FIXME we're gonna have to request this from the server
-        let clubNames = ["mock trial", "computer science", "volleyball"];
-        let descriptions = ["Join SUMTT! We are back and better than ever, are you ready to live out your Elle Woods dreams?", "Interested in Computer Science? Join the computer science club for workshops, homework help, internship opportunities, and much more!", "We love playing volleyball! Whether you play competitively or have never played before, all are welcome. Join us every Saturday in Ridgeway for our open court nights!"]
-        let activated = [true, false, false];
-        this.setState({isLoaded: true})
-        this.setState({imageSources: imageSources, descriptions: descriptions, clubNames: clubNames, activated: activated});
+        // now that we have those, we can assemble the clubs
+        imageSources.forEach((imageSource) => {
+            clubs.forEach((club) => {
+              if (imageSource.includes(club.name)) {
+                descriptions.push(club.description);
+                clubNames.push(club.name);
+                activationStatus.push(club.activated);
+              }
+            })
+        });
+
+        this.setState({
+            imageSources: imageSources,
+            descriptions: descriptions,
+            clubNames: clubNames,
+            activated: activationStatus
+        });
+        // also? side note? i hate this. it's o(n^2) to connect CLUBS to IMAGES. i hate it.
     }
 
     render() {

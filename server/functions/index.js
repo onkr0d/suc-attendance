@@ -13,15 +13,19 @@ app.use(bodyParser.json())
 class Club {
 
     // FIXME we still need to add the description to each club :)
-    constructor(name, spreadsheetId, isActivated) {
+    constructor(name, spreadsheetId, isActivated, description) {
         this.name = name.toLowerCase();
         this.spreadsheetId = spreadsheetId;
         this.isActivated = isActivated;
+        this.description = description;
     }
 }
 
 const defaultSpreadSheetID = "1Ue2W8OfG17hSHm3nWkzcrusIZRv7j68Q4pa5qaYumVM";
-let clubList = [new Club("volleyball", null, false), new Club("computer science", null, false), new Club("mock trial", "1afySUqmr2pelwFoUCZzZCeBS2q9Bbe9FMaxYQiZqWKw", true)];
+let clubList = [new Club("volleyball", null, false, "We love playing volleyball! Whether you play competitively or have never played before, all are welcome. Join us every Saturday in Ridgeway for our open court nights!"),
+    new Club("computer-science", null, false, "Interested in Computer Science? Join the computer science club for workshops, homework help, internship opportunities, and much more!"),
+    new Club("mock-trial", "1afySUqmr2pelwFoUCZzZCeBS2q9Bbe9FMaxYQiZqWKw", true, "Welcome to Suffolk University’s Mock Trial Team! We’re here to talk about cases, learn about what it’s like in the courtroom, and more. We’ll have movie nights, guest speakers, trips, food, etc.!")
+];
 
 // these are demo only :)
 app.post("/api/signindemo", cors(), async (request, response) => {
