@@ -1,7 +1,7 @@
 import React from "react"
 import SingleClub from "./SingleClub";
 import ky from 'ky';
-import { MagnifyingGlass } from  'react-loader-spinner'
+import {MagnifyingGlass} from 'react-loader-spinner'
 
 class Clubs extends React.Component {
 
@@ -36,11 +36,11 @@ class Clubs extends React.Component {
         // now that we have those, we can assemble the clubs
         imageSources.forEach((imageSource) => {
             clubs.forEach((club) => {
-              if (imageSource.includes(club.name)) {
-                descriptions.push(club.description);
-                clubNames.push(club.name.replace("-", " "));
-                activationStatus.push(club.isActivated);
-              }
+                if (imageSource.includes(club.name)) {
+                    descriptions.push(club.description);
+                    clubNames.push(club.name.replace("-", " "));
+                    activationStatus.push(club.isActivated);
+                }
             })
         });
 
@@ -60,15 +60,14 @@ class Clubs extends React.Component {
         let clubs = [];
 
         if (!this.state.loaded) {
-            return <div>
+            return <div className="grid place-items-center">
                 <MagnifyingGlass
                     visible={true}
                     height="80"
                     width="80"
                     ariaLabel="MagnifyingGlass-loading"
-                    glassColor = '#c0efff'
-                    color = '#e15b64'
-                    className={"flex items-center justify-center h-screen"}
+                    glassColor='#c0efff'
+                    color='#e15b64'
                 />
                 <p className={"text-white text-center flex items-center justify-center"}>Retrieving clubs...</p>
             </div>
