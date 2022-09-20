@@ -41,7 +41,7 @@ function SingleClub(props) {
             // this is a prod endpoint
             response = await ky.post("https://us-central1-suvba-354520.cloudfunctions.net/app/api/update", {
                 json: {
-                    name: cookies.name, id: cookies.suffolkID, clubName: props.clubName.toLowerCase()
+                    name: cookies.name, id: cookies.suffolkID, clubName: props.clubName.toLowerCase().replace(" ", "-")
                 }
             }).json()
         } catch (e) {

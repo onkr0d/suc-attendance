@@ -86,7 +86,7 @@ app.post("/api/update", cors(), async (request, response) => {
         }
     })
 
-    functions.logger.info("Successfully signed " + request.body.name + " in.");
+    functions.logger.info("Successfully signed " + request.body.name + " in to club with ID " + spreadsheetId);
     response.status(200).send(JSON.stringify("👍"));
 })
 
