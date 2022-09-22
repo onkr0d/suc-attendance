@@ -69,7 +69,7 @@ class Clubs extends React.Component {
                     glassColor='#c0efff'
                     color='#e15b64'
                 />
-                <p className={"text-white text-center flex items-center justify-center"}>Retrieving clubs...</p>
+                <p className={"text-white text-center flex items-center justify-center"}>retrieving clubs...</p>
             </div>
         }
 
@@ -88,7 +88,7 @@ class Clubs extends React.Component {
                 {clubs}
             </ol>
             <div className={"py-[3%]"}/>
-            <p className={"text-center"}>Want this for all your clubs? Tell your club leaders today!</p>
+            <p className={"text-center"}>want this for all your clubs? tell your club leaders today!</p>
             <div className={"py-[3%]"}/>
         </div>
     }
