@@ -59,6 +59,7 @@ class SignUp extends React.Component {
                     <button
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
                         type="submit" onClick={(event) => {
+                        // TODO: Extract this into a function
                         // before there can be issues with the input, let's make sure an input exists.
                         if (this.enteredName == null && this.enteredSuffolkID == null) {
                             toast.error("Please enter a name and Suffolk ID.");
