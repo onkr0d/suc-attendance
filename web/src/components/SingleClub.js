@@ -51,8 +51,7 @@ function SingleClub(props) {
 
         console.log(response)
         // whoops haha there's no signed in screen :)
-        toast.success("Signed in successfully! You may now close this window.")
-        window.close();
+        toast.success("Signed in successfully! You may now close this tab.")
     }
 
     return <button type={"submit"} onClick={submit}
