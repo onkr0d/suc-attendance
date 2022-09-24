@@ -60,32 +60,34 @@ class SignUp extends React.Component {
                         className="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline dark:text-gray-200"
                         type="submit" onClick={(event) => {
                         // TODO: Extract this into a function
+                        // FIXME: If you type a first name, and delete it, enteredName will no longer be null, but rather empty.
+                        //  This however breaks the alert system, as it doesn't prompt for a name entry. Very cool, thank you.
                         // before there can be issues with the input, let's make sure an input exists.
                         if (this.enteredName == null && this.enteredSuffolkID == null) {
-                            toast.error("Please enter a name and Suffolk ID.");
+                            toast.error("please enter a name and suffolk id.");
                             event.preventDefault();
                             return;
                         } else if (this.enteredName == null) {
-                            toast.error("Please enter a name.");
+                            toast.error("please enter a name.");
                             event.preventDefault();
                             return;
                         } else if (this.enteredSuffolkID == null) {
-                            toast.error("Please enter a Suffolk ID.");
+                            toast.error("please enter a suffolk id.");
                             event.preventDefault();
                             return;
                         }
                         let errorMessage = undefined;
                         if (this.enteredName.trim() === "") {
-                            errorMessage = "Please enter your name.";
+                            errorMessage = "please enter your name.";
                         }
                         if (this.enteredSuffolkID.length !== 7) {
-                            errorMessage = "Your Suffolk ID must be 7 digits long.";
+                            errorMessage = "your suffolk id must be 7 digits long.";
                         }
                         if (!/^\d+$/.test(this.enteredSuffolkID)) {
-                            errorMessage = "Your Suffolk ID must contain only numbers.";
+                            errorMessage = "your suffolk id must contain only numbers.";
                         }
                         if (this.enteredSuffolkID === null || this.enteredSuffolkID.trim() === "") {
-                            errorMessage = "Please enter your Suffolk ID.";
+                            errorMessage = "please enter your suffolk id.";
                         }
                         if (errorMessage !== undefined) {
                             // User messed up
