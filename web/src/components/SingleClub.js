@@ -55,7 +55,11 @@ function SingleClub(props) {
 
     return <div>
         <Toaster/>
-        <LoadingOverlay active={inProgress} spinner text='signing in...' className={"rounded-xl"}>
+        <LoadingOverlay active={inProgress} spinner text='signing in...' styles={{
+            overlay: base => ({
+                ...base, borderRadius: '.75rem', // even rounding this shit like the components it overlays below still leaves it too fucking long >:(
+            }),
+        }}>
             <button type={"submit"} onClick={submit}
                     className="hover:bg-gray-200 max-w-md mx-auto bg-white rounded-xl border shadow-md overflow-hidden md:max-w-2xl dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <div className="md:flex">
