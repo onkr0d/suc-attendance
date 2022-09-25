@@ -39,8 +39,8 @@ function SingleClub(props) {
                     name: cookies.name, id: cookies.suffolkID, clubName: props.clubName.toLowerCase().replace(" ", "-")
                 }
             }).json()
-        } catch (e) {
-            console.error("Something went wrong!")
+        } catch (error) {
+            console.error(error);
             toast.error('something went wrong! please try again later.')
             return;
         }
