@@ -117,7 +117,3 @@ app.get("/api/clubs", cors(), async (request, response) => {
 
     response.status(200).send(JSON.stringify(final));
 })
-
-app.post("/api/fakeupdate", cors(), async (request, response) => {
-    response.status(200).send(JSON.stringify("👍"));
-})
