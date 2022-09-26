@@ -60,6 +60,8 @@ export default App;
 
 class UserInformation {
 
+    // i don't think we need half of this
+
     /**
      * Represents the user's data. newUser and oldUser are not mutually exclusive; if
      * only either id or name is missing, then missingData is true, and both newUser and oldUser are false.
@@ -67,10 +69,28 @@ class UserInformation {
      * @param id The users' id.
      */
     constructor(name, id) {
+        /**
+         * If the user is new, then they have neither a name nor an id.
+         * @type {boolean} True if the user is new, false otherwise.
+         */
         this.newUser = name === undefined && id === undefined;
+        /**
+         * If the user is an old user, then they have a name and an id.
+         * @type {boolean} True if the user is an old user.
+         */
         this.oldUser = name !== undefined && id !== undefined;
+        /**
+         * If the user is missing data, then they have either no name or no id.
+         * @type {boolean} True if the user is missing data.
+         */
         this.missingData = name === undefined || id === undefined;
+        /**
+         * The name of the user.
+         */
         this.name = name;
+        /**
+         * The id of the user.
+         */
         this.id = id;
     }
 }
