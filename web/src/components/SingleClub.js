@@ -13,7 +13,9 @@ function SingleClub(props) {
 
     async function submit() {
         if (!props.activated) {
-            toast.error('This club is not currently activated. Contact club leaders for more information.')
+            toast.error('This club is not currently activated. Contact club leaders for more information.', {
+                style: {textAlign: 'center',}
+            });
 
             // I wanna see who tries to sign up :>
             // this is an endpoint just to log who tries to sign up for a club that isn't activated
