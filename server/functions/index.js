@@ -106,7 +106,6 @@ function findAppropriateClubID(club) {
 }
 
 app.get("/api/clubs", cors(), async (request, response) => {
-    functions.logger.info("Getting club list.");
     let final = [];
     for (let club of clubList) {
         // remove spreadsheet IDs from the club list
