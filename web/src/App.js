@@ -6,7 +6,6 @@ import SignUp from "./components/SignUp"
 import Clubs from "./components/Clubs";
 import ky from 'ky';
 import {initializeApp} from "firebase/app";
-import {getAnalytics} from "firebase/analytics";
 
 function App() {
 
