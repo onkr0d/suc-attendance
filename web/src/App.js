@@ -5,8 +5,23 @@ import Greeting from "./components/Greeting"
 import SignUp from "./components/SignUp"
 import Clubs from "./components/Clubs";
 import ky from 'ky';
+import {initializeApp} from "firebase/app";
 
 function App() {
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDB3dyWy0T0FzdHlIhFMZz5ePEmM-6dAgE",
+        authDomain: "suvba-354520.firebaseapp.com",
+        projectId: "suvba-354520",
+        storageBucket: "suvba-354520.appspot.com",
+        messagingSenderId: "72270236661",
+        appId: "1:72270236661:web:11f91ef009ec7cd1102ebc",
+        measurementId: "G-TFHLLDV29Y"
+    };
+
+    initializeApp(firebaseConfig);
+    // pov: you implemented a memory leak
+    //const analytics = getAnalytics(app);
 
     const [cookies, setCookie] = useCookies(['name', 'suffolkID']);
 
